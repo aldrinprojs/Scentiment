@@ -133,20 +133,22 @@ nav a:hover::after {
     flex-direction: column;
     position: absolute;
     right: 30px;
-    gap: 5px;
+    gap: 6px;
     z-index: 1001;
+    padding: 10px;
+    margin-right: -10px;
 }
 
 .mobile-hamburger span {
-    height: 2px;
-    width: 25px;
+    height: 3px;
+    width: 28px;
     background: var(--dark);
     transition: all 0.3s ease;
     border-radius: 2px;
 }
 
 .mobile-hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(6px, 6px);
 }
 
 .mobile-hamburger.active span:nth-child(2) {
@@ -154,15 +156,15 @@ nav a:hover::after {
 }
 
 .mobile-hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Dropdown Menu */
 .dropdown {
     position: fixed;
     top: 0;
-    right: -300px;
-    width: 280px;
+    right: -100%;
+    width: 100%;
     height: 100vh;
     background: var(--light);
     display: flex;
@@ -180,36 +182,46 @@ nav a:hover::after {
 
 .dropdown .icon-row {
     display: flex;
-    gap: 25px;
-    margin-bottom: 40px;
+    gap: 30px;
+    margin-bottom: 50px;
 }
 
 .dropdown .icon-row i {
-    font-size: 22px;
+    font-size: 26px;
     cursor: pointer;
     color: var(--dark);
     transition: all 0.3s ease;
+    padding: 15px;
+    background: var(--cream);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dropdown .icon-row i:hover {
     color: var(--primary);
     transform: scale(1.15);
+    background: var(--primary);
+    color: white;
 }
 
 .dropdown .menu-links {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
     text-align: center;
 }
 
 .dropdown a {
     font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-    padding: 10px 0;
+    padding: 15px 0;
     position: relative;
     transition: all 0.3s ease;
 }
@@ -977,9 +989,11 @@ footer {
     
     <div class="about-container fade-in">
         <p>
-            SCENTIMENT started with a simple mission: to bring warmth, comfort, and safety into every home through our handmade candles. 
-            Our products are carefully crafted using natural ingredients and local scents to ensure quality and affordability. 
-            Every candle tells a story, making every moment special for you and your loved ones.
+            Scentiment is more than just a candle brand — it is a feeling. We believe that scent has the power to transform a space and uplift the soul.<br><br>
+            
+            The name Scentiment comes from the words "scent" and "sentiment," reflecting our mission to connect fragrance with emotion.<br><br>
+            
+            Our candles are crafted to bring warmth, relaxation, and comfort into everyday life.
         </p>
         
         <div class="about-features">
