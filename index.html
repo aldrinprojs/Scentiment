@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scentiment</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #c6a27e;
+    color: #333;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header {
+    background: #f5f1ed;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top:0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.logo {
+    font-size: 28px;
+    letter-spacing: 5px;
+    font-weight: 600;
+}
+nav {
+    display: flex;
+    gap: 25px;
+}
+nav a {
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 6px 10px;
+    transition: all 0.3s;
+}
+nav a:hover {
+    color: #b08968;
+    background: #f3e8dd;
+    border-radius: 5px;
+}
+.desktop-icons {
+    display: flex;
+    gap: 20px;
+}
+.desktop-icons i {
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.desktop-icons i:hover {
+    color: #b08968;
+}
+
+
+.mobile-hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    position: absolute;
+    right: 25px;
+}
+.mobile-hamburger span {
+    height: 2px;
+    width: 22px;
+    background: #333;
+    margin: 4px 0;
+    transition: 0.3s;
+}
+
+
+.dropdown {
+    position: fixed;
+    top: 80px;
+    right: -220px;
+    width: 180px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    box-shadow: -3px 0 15px rgba(0,0,0,0.2);
+    transition: 0.3s;
+    z-index: 999;
+    border-radius: 8px;
+}
+.dropdown .icon-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+.dropdown .icon-row i {
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+.dropdown .menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+.dropdown a {
+    text-align: center;
+    padding: 5px 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 5px;
+}
+.dropdown a:hover {
+    background: #f3e8dd;
+}
+section {
+    padding: 100px 20px 60px 20px;
+}
+.hero {
+    position: relative;
+    text-align: center;
+    background: url('scentiment.jpeg') center/cover no-repeat;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.hero .overlay {
+    background: rgba(255,255,255,0.95);
+    padding: 40px 30px;
+    border: 2px solid #555;
+    max-width: 700px;
+    text-align: center;
+    animation: fadeIn 1.5s ease;
+}
+.hero .overlay h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+.hero .overlay p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+.hero .overlay button {
+    background: #b08968;
+    border: none;
+    padding: 12px 35px;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.hero .overlay button:hover {
+    background: #8f6a4d;
+}
+
+
+#about {
+    background: #f5f1ed;
+    border-radius: 15px;
+    padding: 60px 30px;
+    text-align: center;
+}
+#about h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #b08968;
+}
+#about p {
+    max-width: 800px;
+    margin: auto;
+    line-height: 1.8;
+}
+#products {
+    padding: 60px 20px;
+    text-align: center;
+}
+#products h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    color: white;
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 25px;
+}
+.product-card {
+    background: #f5f1ed;
+    padding: 20px;
+    border-radius: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+.product-card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+.product-card h3 {
+    margin-bottom: 10px;
+}
+.product-card p {
+    font-size: 14px;
+}
+
+
+#contact {
+    background: #f5f1ed;
+    padding: 60px 30px;
+    text-align: center;
+    border-radius: 15px;
+}
+#contact h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #b08968;
+}
+.contact-form {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.contact-form input,
+.contact-form textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+.contact-form button {
+    background: #b08968;
+    border: none;
+    padding: 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.contact-form button:hover {
+    background: #8f6a4d;
+}
+
+#cart-profile {
+    padding: 60px 20px;
+    text-align: center;
+}
+#cart-profile h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: white;
+}
+.cart-profile-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+.cart-profile-card {
+    background: #f5f1ed;
+    padding: 20px;
+    border-radius: 15px;
+    width: 250px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.cart-profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+.cart-profile-card i {
+    font-size: 50px;
+    margin-bottom: 15px;
+    color: #b08968;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #f5f1ed;
+    font-size: 14px;
+}
+
+
+@keyframes fadeIn {
+    0% {opacity: 0; transform: translateY(20px);}
+    100% {opacity: 1; transform: translateY(0);}
+}
+
+
+@media (max-width: 768px) {
+    nav, .desktop-icons {
+        display: none;
+    }
+    header {
+        justify-content: center;
+        height: 70px;
+    }
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .mobile-hamburger {
+        display: flex;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">SCENTIMENT</div>
+
+    <nav>
+        <a href="#hero">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#products">PRODUCTS</a>
+        <a href="#contact">CONTACT</a>
+        <a href="#cart-profile">CART/PROFILE</a>
+    </nav>
+
+    <div class="desktop-icons">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-shopping-cart"></i>
+        <i class="fas fa-user"></i>
+    </div>
+
+    <div class="mobile-hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="dropdown" id="dropdownMenu">
+        <div class="icon-row">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-shopping-cart"></i>
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="menu-links">
+            <a href="#hero">HOME</a>
+            <a href="#about">ABOUT</a>
+            <a href="#products">PRODUCTS</a>
+            <a href="#contact">CONTACT</a>
+            <a href="#cart-profile">CART/PROFILE</a>
+        </div>
+    </div>
+</header>
+
+<section class="hero" id="hero">
+    <div class="overlay">
+        <h1>Hello!</h1>
+        <p>
+            SCENTIMENT envisions becoming a trusted brand for families by offering 
+            scented and mosquito-repellent candles that are proudly local, affordable, 
+            and crafted to create cozy, safe, and memorable moments.
+        </p>
+        <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'});">SHOP NOW</button>
+    </div>
+</section>
+
+
+<section id="about">
+    <h2>About Us</h2>
+    <p>
+        SCENTIMENT started with a simple mission: to bring warmth, comfort, and safety into every home through our handmade candles. 
+        Our products are carefully crafted using natural ingredients and local scents to ensure quality and affordability. 
+        Every candle tells a story, making every moment special for you and your loved ones.
+    </p>
+</section>
+
+<section id="products">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="product1.jpg" alt="Product 1">
+            <h3>Lavender Candle</h3>
+            <p>Relaxing aroma, handcrafted with love.</p>
+        </div>
+        <div class="product-card">
+            <img src="product2.jpg" alt="Product 2">
+            <h3>Citronella Candle</h3>
+            <p>Keeps mosquitoes away naturally.</p>
+        </div>
+        <div class="product-card">
+            <img src="product3.jpg" alt="Product 3">
+            <h3>Vanilla Candle</h3>
+            <p>Sweet scent to enhance cozy moments.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">SEND MESSAGE</button>
+    </form>
+</section>
+
+<section id="cart-profile">
+    <h2>Cart / Profile</h2>
+    <div class="cart-profile-grid">
+        <div class="cart-profile-card">
+            <i class="fas fa-shopping-cart"></i>
+            <h3>View Cart</h3>
+            <p>Check items you’ve added.</p>
+        </div>
+        <div class="cart-profile-card">
+            <i class="fas fa-user"></i>
+            <h3>Profile</h3>
+            <p>Manage your account and orders.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2026 SCENTIMENT. All Rights Reserved.
+</footer>
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById("dropdownMenu");
+    if(menu.style.right === "0px") {
+        menu.style.right = "-220px";
+    } else {
+        menu.style.right = "0px";
+    }
+}
+</script>
+
+</body>
+</html>
