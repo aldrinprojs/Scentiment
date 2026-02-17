@@ -3,348 +3,924 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scentiment</title>
+<title>Scentiment | Handcrafted Candles</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 * {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     scroll-behavior: smooth;
 }
+
+:root {
+    --primary: #8B6914;
+    --primary-dark: #6B4F10;
+    --secondary: #D4A574;
+    --accent: #C9A66B;
+    --light: #FAF8F5;
+    --dark: #2C2416;
+    --cream: #F5F1ED;
+    --shadow: rgba(44, 36, 22, 0.15);
+    --glow: rgba(201, 166, 107, 0.4);
+}
+
 body {
     font-family: 'Playfair Display', serif;
-    background-color: #c6a27e;
-    color: #333;
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
+
 a {
     text-decoration: none;
     color: inherit;
 }
 
+/* Header Styles */
 header {
-    background: #f5f1ed;
-    padding: 15px 40px;
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 18px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: fixed;
     width: 100%;
-    top:0;
+    top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 20px var(--shadow);
+    transition: all 0.3s ease;
 }
+
+header.scrolled {
+    padding: 12px 50px;
+    background: rgba(250, 248, 245, 0.98);
+}
+
 .logo {
-    font-size: 28px;
-    letter-spacing: 5px;
-    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: 6px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
+
 nav {
     display: flex;
-    gap: 25px;
+    gap: 30px;
 }
+
 nav a {
-    font-weight: 600;
-    letter-spacing: 2px;
-    padding: 6px 10px;
-    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 15px;
+    position: relative;
+    transition: all 0.3s ease;
 }
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
 nav a:hover {
-    color: #b08968;
-    background: #f3e8dd;
-    border-radius: 5px;
+    color: var(--primary);
 }
+
+nav a:hover::after {
+    width: 60%;
+}
+
 .desktop-icons {
     display: flex;
-    gap: 20px;
+    gap: 22px;
 }
+
 .desktop-icons i {
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
+    color: var(--dark);
 }
+
 .desktop-icons i:hover {
-    color: #b08968;
+    color: var(--primary);
+    transform: scale(1.1);
 }
 
-
+/* Mobile Hamburger */
 .mobile-hamburger {
     display: none;
     cursor: pointer;
     flex-direction: column;
     position: absolute;
-    right: 25px;
+    right: 30px;
+    gap: 5px;
+    z-index: 1001;
 }
+
 .mobile-hamburger span {
     height: 2px;
-    width: 22px;
-    background: #333;
-    margin: 4px 0;
-    transition: 0.3s;
+    width: 25px;
+    background: var(--dark);
+    transition: all 0.3s ease;
+    border-radius: 2px;
 }
 
+.mobile-hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
 
+.mobile-hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Dropdown Menu */
 .dropdown {
     position: fixed;
-    top: 80px;
-    right: -220px;
-    width: 180px;
-    background: white;
+    top: 0;
+    right: -300px;
+    width: 280px;
+    height: 100vh;
+    background: var(--light);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 15px 10px;
-    box-shadow: -3px 0 15px rgba(0,0,0,0.2);
-    transition: 0.3s;
+    box-shadow: -5px 0 30px var(--shadow);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
-    border-radius: 8px;
 }
+
+.dropdown.active {
+    right: 0;
+}
+
 .dropdown .icon-row {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-    align-items: center;
+    gap: 25px;
+    margin-bottom: 40px;
 }
+
 .dropdown .icon-row i {
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
-    color: #333;
+    color: var(--dark);
+    transition: all 0.3s ease;
 }
+
+.dropdown .icon-row i:hover {
+    color: var(--primary);
+    transform: scale(1.15);
+}
+
 .dropdown .menu-links {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: 100%;
-}
-.dropdown a {
+    gap: 20px;
     text-align: center;
-    padding: 5px 0;
-    font-weight: 600;
-    letter-spacing: 1px;
-    border-radius: 5px;
 }
+
+.dropdown a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
 .dropdown a:hover {
-    background: #f3e8dd;
+    color: var(--primary);
 }
+
+.dropdown a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.dropdown a:hover::before {
+    width: 40%;
+}
+
+/* Section Base Styles */
 section {
-    padding: 100px 20px 60px 20px;
+    padding: 100px 30px 70px;
 }
+
+.section-title {
+    font-size: 42px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Hero Section */
 .hero {
     position: relative;
-    text-align: center;
-    background: url('scentiment.jpeg') center/cover no-repeat;
-    height: 90vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(135deg, #FDF8F3 0%, #F5EDE4 50%, #E8DED0 100%);
+    overflow: hidden;
 }
-.hero .overlay {
-    background: rgba(255,255,255,0.95);
-    padding: 40px 30px;
-    border: 2px solid #555;
-    max-width: 700px;
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(201, 166, 107, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 105, 20, 0.1) 0%, transparent 50%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
-    animation: fadeIn 1.5s ease;
+    max-width: 750px;
+    padding: 50px 40px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(201, 166, 107, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(44, 36, 22, 0.1);
+    animation: heroFadeIn 1.2s ease-out;
 }
-.hero .overlay h1 {
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero h1 {
     font-family: 'Great Vibes', cursive;
-    font-size: 60px;
+    font-size: 72px;
     margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--primary-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
 }
-.hero .overlay p {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 25px;
+
+@keyframes shimmer {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.1); }
 }
-.hero .overlay button {
-    background: #b08968;
+
+.hero p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+.hero button {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     border: none;
-    padding: 12px 35px;
-    font-size: 16px;
+    padding: 15px 45px;
+    font-size: 14px;
     letter-spacing: 3px;
+    text-transform: uppercase;
     color: white;
     cursor: pointer;
-    transition: all 0.3s;
-}
-.hero .overlay button:hover {
-    background: #8f6a4d;
+    transition: all 0.4s ease;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
 }
 
-
-#about {
-    background: #f5f1ed;
-    border-radius: 15px;
-    padding: 60px 30px;
-    text-align: center;
-}
-#about h2 {
-    font-size: 40px;
-    margin-bottom: 20px;
-    color: #b08968;
-}
-#about p {
-    max-width: 800px;
-    margin: auto;
-    line-height: 1.8;
-}
-#products {
-    padding: 60px 20px;
-    text-align: center;
-}
-#products h2 {
-    font-size: 40px;
-    margin-bottom: 40px;
-    color: white;
-}
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 25px;
-}
-.product-card {
-    background: #f5f1ed;
-    padding: 20px;
-    border-radius: 15px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
-}
-.product-card img {
+.hero button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
     width: 100%;
-    border-radius: 12px;
-    margin-bottom: 15px;
-}
-.product-card h3 {
-    margin-bottom: 10px;
-}
-.product-card p {
-    font-size: 14px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
 }
 
+.hero button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--glow);
+}
 
-#contact {
-    background: #f5f1ed;
-    padding: 60px 30px;
+.hero button:hover::before {
+    left: 100%;
+}
+
+/* Floating Candles Animation */
+.floating-candle {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-candle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+.floating-candle:nth-child(2) { top: 25%; right: 15%; animation-delay: 1s; }
+.floating-candle:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 2s; }
+.floating-candle:nth-child(4) { bottom: 30%; right: 10%; animation-delay: 3s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* About Section */
+#about {
+    background: var(--cream);
     text-align: center;
-    border-radius: 15px;
+    position: relative;
 }
-#contact h2 {
-    font-size: 40px;
-    margin-bottom: 20px;
-    color: #b08968;
+
+#about::before {
+    content: '"';
+    position: absolute;
+    top: 120px;
+    left: 10%;
+    font-size: 150px;
+    color: rgba(201, 166, 107, 0.1);
+    font-family: 'Great Vibes', cursive;
+    line-height: 1;
 }
-.contact-form {
-    max-width: 500px;
-    margin: auto;
+
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#about .section-title {
+    color: var(--primary);
+}
+
+#about p {
+    font-size: 18px;
+    line-height: 1.9;
+    color: #555;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+.about-features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.about-feature {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-}
-.contact-form input,
-.contact-form textarea {
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-.contact-form button {
-    background: #b08968;
-    border: none;
-    padding: 12px;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-.contact-form button:hover {
-    background: #8f6a4d;
+    align-items: center;
+    gap: 10px;
 }
 
-#cart-profile {
-    padding: 60px 20px;
+.about-feature i {
+    font-size: 28px;
+    color: var(--primary);
+    width: 60px;
+    height: 60px;
+    background: rgba(201, 166, 107, 0.15);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.about-feature:hover i {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.about-feature span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #666;
+}
+
+/* Products Section */
+#products {
+    background: linear-gradient(180deg, var(--light) 0%, var(--cream) 100%);
     text-align: center;
 }
-#cart-profile h2 {
-    font-size: 40px;
-    margin-bottom: 20px;
-    color: white;
+
+#products .section-title {
+    color: var(--dark);
 }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 20px var(--shadow);
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px var(--shadow);
+}
+
+.product-card:hover::before {
+    transform: scaleX(1);
+}
+
+.product-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.08);
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.product-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.product-card .description {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+.product-card .price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.product-card .price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 8px;
+}
+
+.add-to-cart {
+    background: var(--dark);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 25px;
+    width: 100%;
+}
+
+.add-to-cart:hover {
+    background: var(--primary);
+    transform: scale(1.02);
+}
+
+/* Contact Section */
+#contact {
+    background: var(--cream);
+    text-align: center;
+}
+
+#contact .section-title {
+    color: var(--primary);
+}
+
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px var(--shadow);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 15px 20px;
+    border: 2px solid #eee;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    background: var(--light);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(201, 166, 107, 0.15);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form button {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border: none;
+    padding: 16px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.contact-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--glow);
+}
+
+/* Cart/Profile Section */
+#cart-profile {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--light) 100%);
+    text-align: center;
+}
+
+#cart-profile .section-title {
+    color: var(--dark);
+}
+
 .cart-profile-grid {
     display: flex;
     flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cart-profile-card {
+    background: white;
+    padding: 40px 35px;
+    border-radius: 20px;
+    width: 280px;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 20px var(--shadow);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.cart-profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(201, 166, 107, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cart-profile-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px var(--shadow);
+}
+
+.cart-profile-card:hover::before {
+    opacity: 1;
+}
+
+.cart-profile-card i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: transform 0.3s ease;
+}
+
+.cart-profile-card:hover i {
+    transform: scale(1.1);
+}
+
+.cart-profile-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.cart-profile-card p {
+    font-size: 14px;
+    color: #777;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+/* Footer */
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 50px 30px 25px;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 25px;
+}
+
+.footer-logo {
+    font-size: 28px;
+    letter-spacing: 6px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
     justify-content: center;
 }
-.cart-profile-card {
-    background: #f5f1ed;
-    padding: 20px;
-    border-radius: 15px;
-    width: 250px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.cart-profile-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
-}
-.cart-profile-card i {
-    font-size: 50px;
-    margin-bottom: 15px;
-    color: #b08968;
-}
 
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #f5f1ed;
+.footer-links a {
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
 }
 
-
-@keyframes fadeIn {
-    0% {opacity: 0; transform: translateY(20px);}
-    100% {opacity: 1; transform: translateY(0);}
+.footer-links a:hover {
+    color: var(--accent);
 }
 
+.social-icons {
+    display: flex;
+    gap: 20px;
+}
 
-@media (max-width: 768px) {
+.social-icons a {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+}
+
+.social-icons i {
+    font-size: 18px;
+}
+
+.footer-bottom {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Scroll Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
     nav, .desktop-icons {
         display: none;
     }
+    
     header {
         justify-content: center;
-        height: 70px;
+        padding: 15px 20px;
     }
+    
     .logo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
     }
+    
     .mobile-hamburger {
         display: flex;
-        top: 50%;
-        transform: translateY(-50%);
+    }
+    
+    .hero-content {
+        margin: 20px;
+        padding: 35px 25px;
+    }
+    
+    .hero h1 {
+        font-size: 52px;
+    }
+    
+    .section-title {
+        font-size: 32px;
+    }
+    
+    .about-features {
+        gap: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 42px;
+    }
+    
+    .hero p {
+        font-size: 15px;
+    }
+    
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cart-profile-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cart-profile-card {
+        width: 100%;
+        max-width: 300px;
     }
 }
 </style>
 </head>
 <body>
 
-<header>
+<header id="header">
     <div class="logo">SCENTIMENT</div>
 
     <nav>
-        <a href="#hero">HOME</a>
-        <a href="#about">ABOUT</a>
-        <a href="#products">PRODUCTS</a>
-        <a href="#contact">CONTACT</a>
-        <a href="#cart-profile">CART/PROFILE</a>
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+        <a href="#cart-profile">Cart</a>
     </nav>
 
     <div class="desktop-icons">
@@ -366,97 +942,214 @@ footer {
             <i class="fas fa-user"></i>
         </div>
         <div class="menu-links">
-            <a href="#hero">HOME</a>
-            <a href="#about">ABOUT</a>
-            <a href="#products">PRODUCTS</a>
-            <a href="#contact">CONTACT</a>
-            <a href="#cart-profile">CART/PROFILE</a>
+            <a href="#hero" onclick="toggleMenu()">Home</a>
+            <a href="#about" onclick="toggleMenu()">About</a>
+            <a href="#products" onclick="toggleMenu()">Products</a>
+            <a href="#contact" onclick="toggleMenu()">Contact</a>
+            <a href="#cart-profile" onclick="toggleMenu()">Cart</a>
         </div>
     </div>
 </header>
 
 <section class="hero" id="hero">
-    <div class="overlay">
+    <div class="floating-candle">🕯️</div>
+    <div class="floating-candle">✨</div>
+    <div class="floating-candle">🕯️</div>
+    <div class="floating-candle">💫</div>
+    
+    <div class="hero-content">
         <h1>Hello!</h1>
         <p>
             SCENTIMENT envisions becoming a trusted brand for families by offering 
             scented and mosquito-repellent candles that are proudly local, affordable, 
-            and crafted to create cozy, safe, and memorable moments.
+            and crafted to create cozy, safe, and memorable moments for your loved ones.
         </p>
-        <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'});">SHOP NOW</button>
+        <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'});">
+            Shop Now
+        </button>
     </div>
 </section>
 
 
 <section id="about">
-    <h2>About Us</h2>
-    <p>
-        SCENTIMENT started with a simple mission: to bring warmth, comfort, and safety into every home through our handmade candles. 
-        Our products are carefully crafted using natural ingredients and local scents to ensure quality and affordability. 
-        Every candle tells a story, making every moment special for you and your loved ones.
-    </p>
+    <h2 class="section-title fade-in">About Us</h2>
+    <p class="section-subtitle fade-in">Crafting warmth since 2026</p>
+    
+    <div class="about-container fade-in">
+        <p>
+            SCENTIMENT started with a simple mission: to bring warmth, comfort, and safety into every home through our handmade candles. 
+            Our products are carefully crafted using natural ingredients and local scents to ensure quality and affordability. 
+            Every candle tells a story, making every moment special for you and your loved ones.
+        </p>
+        
+        <div class="about-features">
+            <div class="about-feature">
+                <i class="fas fa-leaf"></i>
+                <span>Natural</span>
+            </div>
+            <div class="about-feature">
+                <i class="fas fa-hand-holding-heart"></i>
+                <span>Handmade</span>
+            </div>
+            <div class="about-feature">
+                <i class="fas fa-shield-alt"></i>
+                <span>Safe</span>
+            </div>
+            <div class="about-feature">
+                <i class="fas fa-heart"></i>
+                <span>Local</span>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section id="products">
-    <h2>Our Products</h2>
+    <h2 class="section-title fade-in">Our Products</h2>
+    <p class="section-subtitle fade-in">Handcrafted with love</p>
+    
     <div class="product-grid">
-        <div class="product-card">
-            <img src="product1.jpg" alt="Product 1">
+        <div class="product-card fade-in">
+            <div class="product-image">
+                <img src="product1.jpg" alt="Lavender Candle">
+                <span class="product-badge">Best Seller</span>
+            </div>
             <h3>Lavender Candle</h3>
-            <p>Relaxing aroma, handcrafted with love.</p>
+            <p class="description">Relaxing aroma, handcrafted with love. Perfect for meditation and sleep.</p>
+            <div class="price">₹299 <span>₹399</span></div>
+            <button class="add-to-cart">Add to Cart</button>
         </div>
-        <div class="product-card">
-            <img src="product2.jpg" alt="Product 2">
+        
+        <div class="product-card fade-in">
+            <div class="product-image">
+                <img src="product2.jpg" alt="Citronella Candle">
+                <span class="product-badge">Natural</span>
+            </div>
             <h3>Citronella Candle</h3>
-            <p>Keeps mosquitoes away naturally.</p>
+            <p class="description">Keeps mosquitoes away naturally. Safe for outdoor gatherings.</p>
+            <div class="price">₹249 <span>₹329</span></div>
+            <button class="add-to-cart">Add to Cart</button>
         </div>
-        <div class="product-card">
-            <img src="product3.jpg" alt="Product 3">
+        
+        <div class="product-card fade-in">
+            <div class="product-image">
+                <img src="product3.jpg" alt="Vanilla Candle">
+                <span class="product-badge">Popular</span>
+            </div>
             <h3>Vanilla Candle</h3>
-            <p>Sweet scent to enhance cozy moments.</p>
+            <p class="description">Sweet scent to enhance cozy moments with your loved ones.</p>
+            <div class="price">₹279 <span>₹379</span></div>
+            <button class="add-to-cart">Add to Cart</button>
         </div>
     </div>
 </section>
 
 <section id="contact">
-    <h2>Contact Us</h2>
-    <form class="contact-form">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="Your Message" rows="5" required></textarea>
-        <button type="submit">SEND MESSAGE</button>
-    </form>
+    <h2 class="section-title fade-in">Contact Us</h2>
+    <p class="section-subtitle fade-in">We'd love to hear from you</p>
+    
+    <div class="contact-container fade-in">
+        <form class="contact-form">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
 </section>
 
 <section id="cart-profile">
-    <h2>Cart / Profile</h2>
+    <h2 class="section-title fade-in">Account</h2>
+    <p class="section-subtitle fade-in">Manage your orders</p>
+    
     <div class="cart-profile-grid">
-        <div class="cart-profile-card">
+        <div class="cart-profile-card fade-in">
             <i class="fas fa-shopping-cart"></i>
-            <h3>View Cart</h3>
-            <p>Check items you’ve added.</p>
+            <h3>My Cart</h3>
+            <p>View and manage items you've added to your cart.</p>
         </div>
-        <div class="cart-profile-card">
+        
+        <div class="cart-profile-card fade-in">
             <i class="fas fa-user"></i>
-            <h3>Profile</h3>
-            <p>Manage your account and orders.</p>
+            <h3>My Profile</h3>
+            <p>Manage your account settings and view order history.</p>
         </div>
     </div>
 </section>
 
 <footer>
-    &copy; 2026 SCENTIMENT. All Rights Reserved.
+    <div class="footer-content">
+        <div class="footer-logo">SCENTIMENT</div>
+        
+        <div class="footer-links">
+            <a href="#hero">Home</a>
+            <a href="#about">About</a>
+            <a href="#products">Products</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+        
+        <div class="footer-bottom">
+            &copy; 2026 SCENTIMENT. All Rights Reserved. Made with ❤️
+        </div>
+    </div>
 </footer>
 
 <script>
 function toggleMenu() {
     const menu = document.getElementById("dropdownMenu");
-    if(menu.style.right === "0px") {
-        menu.style.right = "-220px";
-    } else {
-        menu.style.right = "0px";
-    }
+    const hamburger = document.querySelector(".mobile-hamburger");
+    menu.classList.toggle("active");
+    hamburger.classList.toggle("active");
 }
+
+// Header scroll effect
+window.addEventListener('scroll', function() {
+    const header = document.getElementById('header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// Scroll animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+});
+
+// Smooth scroll for navigation
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
 </script>
 
 </body>
