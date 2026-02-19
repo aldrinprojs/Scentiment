@@ -64,6 +64,19 @@ header.scrolled {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.logo-text {
     font-size: 26px;
     letter-spacing: 6px;
     font-weight: 700;
@@ -667,7 +680,10 @@ footer {
 <body>
 
 <header id="header">
-    <div class="logo">SCENTIMENT</div>
+    <div class="logo">
+        <img src="logo.jpg" alt="Scentiment Logo">
+        <span class="logo-text">SCENTIMENT</span>
+    </div>
 
     <nav>
         <a href="index.html#hero">Home</a>
