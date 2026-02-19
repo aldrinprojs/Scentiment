@@ -64,6 +64,19 @@ header.scrolled {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.logo-text {
     font-size: 26px;
     letter-spacing: 6px;
     font-weight: 700;
@@ -925,7 +938,10 @@ footer {
 <body>
 
 <header id="header">
-    <div class="logo">SCENTIMENT</div>
+    <div class="logo">
+        <img src="logo.jpg" alt="Scentiment Logo">
+        <span class="logo-text">SCENTIMENT</span>
+    </div>
 
     <nav>
         <a href="#hero">Home</a>
@@ -971,6 +987,7 @@ footer {
     
     <div class="hero-content">
         <h1>Hello!</h1>
+        <p class="tagline">Scent your soul with candles made just for you.</p>
         <p>
             SCENTIMENT envisions becoming a trusted brand for families by offering 
             scented and mosquito-repellent candles that are proudly local, affordable, 
@@ -1076,11 +1093,11 @@ footer {
     <p class="section-subtitle fade-in">Manage your orders</p>
     
     <div class="cart-profile-grid">
-        <div class="cart-profile-card fade-in">
+        <a href="cart.html" class="cart-profile-card fade-in">
             <i class="fas fa-shopping-cart"></i>
             <h3>My Cart</h3>
             <p>View and manage items you've added to your cart.</p>
-        </div>
+        </a>
         
         <div class="cart-profile-card fade-in">
             <i class="fas fa-user"></i>
